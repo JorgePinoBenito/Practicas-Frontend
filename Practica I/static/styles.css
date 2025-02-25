@@ -40,6 +40,10 @@ body {
   padding: 10px 20px;
 }
 
+.contenedorModulo.expanded .tituloBotonMod {
+  border-bottom: 2px solid black;
+}
+
 .mostrarMasMenosModulo {
   display: flex;
   align-items: center;

@@ -8,11 +8,11 @@ type ModuloProps = {
 
 const Modulo: FunctionComponent<ModuloProps> = (props) => {
   const [showModulo, setShowModulo] = useState<boolean>(false);
-
   const [newTextMod, setTextMod] = useState<string>(props.texto);
+
   return (
     <div class="container">
-      <div class="contenedorModulo">
+      <div class={`contenedorModulo ${showModulo ? "expanded" : ""}`}>
         <div class="tituloBotonMod">
           <div class="tituloModulo">
             <h2>Módulo {props.orden}</h2>
