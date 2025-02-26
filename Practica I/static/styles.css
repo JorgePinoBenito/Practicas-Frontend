@@ -40,7 +40,7 @@ body {
   padding: 10px 20px;
 }
 
-.contenedorModulo.expanded .tituloBotonMod {
+.contenedorModulo.expandido .tituloBotonMod {
   border-bottom: 2px solid black;
 }
 

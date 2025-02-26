@@ -12,7 +12,7 @@ const Modulo: FunctionComponent<ModuloProps> = (props) => {
 
   return (
     <div class="container">
-      <div class={`contenedorModulo ${showModulo ? "expanded" : ""}`}>
+      <div class={`contenedorModulo ${showModulo ? "expandido" : ""}`}>
         <div class="tituloBotonMod">
           <div class="tituloModulo">
             <h2>Módulo {props.orden}</h2>
@@ -40,7 +40,7 @@ const Modulo: FunctionComponent<ModuloProps> = (props) => {
               type="text"
               name="ipsum"
               onChange={(e) =>
-                setTextMod((prev) => prev + " " + e.currentTarget.value)}
+                setTextMod((p) => p + " " + e.currentTarget.value)}
             />
           </div>
         )}
