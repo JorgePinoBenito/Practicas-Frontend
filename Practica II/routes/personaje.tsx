@@ -1,6 +1,6 @@
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import axios from "npm:axios";
-import Character from "../components/Personaje.tsx";
+import Personaje from "../components/Personaje.tsx";
 
 type Data = {
   count: number;
@@ -67,7 +67,7 @@ const Page = (props: PageProps<Data>) => {
     <div class="contenedorPersonajes">
       <h1>Resultado</h1>
       <div class="personaje">
-        <Character
+        <Personaje
           name={character.name}
           height={character.height}
           mass={character.mass}

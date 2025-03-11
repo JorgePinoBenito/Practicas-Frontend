@@ -1,6 +1,6 @@
 import { FunctionComponent } from "preact";
 
-type CharacterProps = {
+type PersonajeProps = {
   name: string;
   height: string;
   mass: string;
@@ -19,7 +19,7 @@ type CharacterProps = {
   url: string;
 };
 
-const Character: FunctionComponent<CharacterProps> = (props) => {
+const Personaje: FunctionComponent<PersonajeProps> = (props) => {
   const {
     name,
     height,
@@ -104,4 +104,4 @@ const Character: FunctionComponent<CharacterProps> = (props) => {
   );
 };
 
-export default Character;
+export default Personaje;
