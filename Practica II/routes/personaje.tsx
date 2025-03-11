@@ -52,7 +52,9 @@ const Page = (props: PageProps<Data>) => {
         <h2>No se ha encontrado el personaje</h2>
         <div>
           <a href="/">
-            <button class="volver">Volver a la página de búsqueda</button>
+            <button type="button" class="volverErr">
+              Volver a la página de búsqueda
+            </button>
           </a>
         </div>
       </div>
@@ -86,7 +88,9 @@ const Page = (props: PageProps<Data>) => {
       </div>
       <div>
         <a href="/">
-          <button class="volver">Volver a la página de búsqueda</button>
+          <button type="button" class="volver">
+            Volver a la página de búsqueda
+          </button>
         </a>
       </div>
     </div>
