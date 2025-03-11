@@ -1,25 +1,28 @@
-import { useSignal } from "@preact/signals";
-import Counter from "../islands/Counter.tsx";
+import { FreshContext, Handlers } from "$fresh/server.ts";
 
-export default function Home() {
-  const count = useSignal(3);
+export const handler: Handlers = {
+  GET: async (req: Request, ctx: FreshContext) => {
+    const url = new URL(req.url);
+    const name = url.searchParams.get("name");
+    if (name) {
+      return new Response("", {
+        status: 307,
+        headers: { Location: `/personaje?name=${name}` },
+      });
+    }
+    return ctx.render();
+  },
+};
+
+const Home = () => {
   return (
-    <div class="px-4 py-8 mx-auto bg-[#86efac]">
-      <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
-        <img
-          class="my-6"
-          src="/logo.svg"
-          width="128"
-          height="128"
-          alt="the Fresh logo: a sliced lemon dripping with juice"
-        />
-        <h1 class="text-4xl font-bold">Welcome to Fresh</h1>
-        <p class="my-4">
-          Try updating this message in the
-          <code class="mx-2">./routes/index.tsx</code> file, and refresh.
-        </p>
-        <Counter count={count} />
-      </div>
+    <div class="formularioInput">
+      <form method="get">
+        Introduce un nombre: <input type="text" name="name" />
+        <button class="botonFormularioInput" type="submit">Buscar</button>
+      </form>
     </div>
   );
-}
+};
+
+export default Home;
