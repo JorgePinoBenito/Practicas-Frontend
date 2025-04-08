@@ -29,12 +29,12 @@ export const handler: Handlers = {
         }
         const bookData = response.data.docs[0];
         const title = bookData.title;
-        const author = bookData.author_name[0];
+        const author = bookData.author_name;
         const coverId = bookData.cover_i;
 
         const bookInfo = {
           title: title,
-          author_name: [author],
+          author_name: author,
           cover_i: coverId,
           key: bookData.key.replace("/works/", ""),
         };
@@ -51,7 +51,7 @@ export const handler: Handlers = {
 
 const Page = (props: PageProps<Data>) => {
   return (
-    <div>
+    <div class="index">
       <h1>Featured Books</h1>
       <ul>
         {props.data.docs.map((book) => (

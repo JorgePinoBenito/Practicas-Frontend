@@ -13,9 +13,6 @@ type Data = {
 export const handler: Handlers = {
   GET: async (_req: Request, ctx: FreshContext<unknown, Data>) => {
     const { key } = ctx.params;
-    /*Página con información sobre el autor:
-https://openlibrary.org/authors/{id}.json
-https://openlibrary.org/authors/{id}/works.json*/
     try {
       const works = [];
 
@@ -55,7 +52,7 @@ https://openlibrary.org/authors/{id}/works.json*/
 
 const Page = (props: PageProps<Data>) => {
   return (
-    <div>
+    <div class="authorPage">
       <h1>{props.data.name}</h1>
       <p>{props.data.biography}</p>
       <h2>Works</h2>

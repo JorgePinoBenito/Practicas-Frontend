@@ -1,6 +1,12 @@
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import axios from "npm:axios";
 
+type Author = {
+  author: {
+    key: string;
+  };
+};
+
 type Data = {
   title: string;
   description: string;
@@ -9,15 +15,13 @@ type Data = {
   };
   npages: number;
   key: string;
-  authors: {
-    key: string;
-  }[];
+  authors: Author[];
+  covers: number[];
 };
 
 export const handler: Handlers = {
   GET: async (_req: Request, ctx: FreshContext<unknown, Data>) => {
     const { key } = ctx.params;
-    console.log(key);
     try {
       const url = `https://openlibrary.org/works/${key}.json`;
       const response = await axios.get<Data>(url);
@@ -32,17 +36,10 @@ export const handler: Handlers = {
       const created = bookData.created.value;
       const npages = bookData.npages || 0;
       const bookKey = bookData.key.replace("/works/", "");
-      const authors = Array.isArray(bookData.authors)
-        ? bookData.authors
-          .filter((author) => author.key) // Ensure author.key exists
-          .map((author) => {
-            return { key: author.key.replace("/authors/", "") };
-          })
-        : [];
-
-      authors.map((author) => {
-        console.log(author);
-      });
+      const authors = bookData.authors.map((author) => ({
+        author: { key: author.author.key.replace("/authors/", "") },
+      }));
+      const covers = bookData.covers || [];
 
       const bookInfo = {
         title: title,
@@ -51,11 +48,8 @@ export const handler: Handlers = {
         npages: npages,
         key: bookKey,
         authors: authors,
+        covers: covers,
       };
-      //map y console log de author key
-      authors.map((author) => {
-        console.log(author.key);
-      });
       return ctx.render(bookInfo);
     } catch (error) {
       console.error(error);
@@ -66,20 +60,25 @@ export const handler: Handlers = {
 
 const Page = (props: PageProps<Data>) => {
   return (
-    <div>
+    <div class="bookDetails">
       <h1>{props.data.title}</h1>
       <p>{props.data.description}</p>
       <p>Año de publicación: {props.data.created.value}</p>
       <p>Número de páginas: {props.data.npages}</p>
-      <img
-        src={`https://covers.openlibrary.org/b/id/${props.data.key}-L.jpg`}
-        alt={props.data.title}
-      />
+      {props.data.covers.map((cover) => {
+        return (
+          <img
+            key={cover}
+            src={`https://covers.openlibrary.org/b/id/${cover}-L.jpg`}
+            alt={props.data.title}
+          />
+        );
+      })}
       <h2>Autor</h2>
       {props.data.authors.map((author) => {
         return (
-          <div key={author.key}>
-            <a href={`/author/${author.key}`}>{author.key}</a>
+          <div key={author.author.key}>
+            <a href={`/author/${author.author.key}`}>{author.author.key}</a>
           </div>
         );
       })}
