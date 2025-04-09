@@ -3,15 +3,6 @@ import axios from "npm:axios";
 import { BookData } from "../../types.ts";
 import BookDetails from "../../components/BookDetails.tsx";
 
-/*dame este type
-
-entries": [
-  {
-
-  "number_of_pages": 431,
-  }
-]
-*/
 type Pages = {
   entries: {
     number_of_pages: number;
