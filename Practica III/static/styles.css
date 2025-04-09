@@ -46,15 +46,18 @@ body {
     padding: 0 20px 0 20px;
   }
 }
-h1{
-  text-align: center; 
+
+h1 {
+  text-align: center;
 }
-.index  {
-  display:grid;
+
+.index {
+  display: grid;
   padding: 10px;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   padding: 10px;
 }
+
 .grid-element {
   border: 1px solid black;
   padding: 20px;
@@ -65,22 +68,61 @@ h1{
   box-shadow: 0 1px 4px black;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.BookDetails{
-  border: 1px solid black;
+
+.BookDetails {
+  width: 90%;
+  max-width: 1000px;
   padding: 20px;
-  font-size: 18px;
-  text-align: center;
-  border-radius: 12px;
+  margin: 30px auto;
   background-color: white;
+  border: 1px solid black;
+  border-radius: 12px;
   box-shadow: 0 1px 4px black;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  grid-column:2/3;
+  font-size: 15px;
+  text-align: center;
 }
+
+.BookImages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  justify-items: center;
+}
+
+.BookImages img {
+  width: 100%;
+  height: auto;
+  max-width: 160px;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.AuthorDetails {
+  width: 90%;
+  max-width: 1000px;
+  padding: 20px;
+  margin: 30px auto;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px black;
+  font-size: 15px;
+  text-align: center;
+}
+
+.AuthorDetails:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
 .grid-element:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   cursor: pointer;
 }
+
 .BookDetails:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -88,27 +130,35 @@ h1{
 }
 
 .searchForm {
-  text-align:center;
+  text-align: center;
 }
 
-button{
+.sinResultado {
+  text-align: center;
+  color: #a00;
+  font-weight: bold;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+button {
   border-radius: 30%;
-  color:black; 
+  color: black;
   background-color: white;
   border-color: rgb(255, 208, 0);
- padding: 10px; 
+  padding: 10px;
 }
 
-input{
-  border:3px solid;
-  border-radius:15px; 
-  border-color:rgb(255, 208, 0); 
-  padding:10px;
+input {
+  border: 3px solid;
+  border-radius: 15px;
+  border-color: rgb(255, 208, 0);
+  padding: 10px;
 }
 
-button:hover{
-  transform: translateZ(-5px) scale(1.02);  
+button:hover {
+  transform: translateZ(-5px) scale(1.02);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  color:black;
+  color: black;
 }
