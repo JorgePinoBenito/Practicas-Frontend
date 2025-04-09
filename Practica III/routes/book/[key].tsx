@@ -3,6 +3,21 @@ import axios from "npm:axios";
 import { BookData } from "../../types.ts";
 import BookDetails from "../../components/BookDetails.tsx";
 
+/*dame este type
+
+entries": [
+  {
+
+  "number_of_pages": 431,
+  }
+]
+*/
+type Pages = {
+  entries: {
+    number_of_pages: number;
+  }[];
+};
+
 export const handler: Handlers = {
   GET: async (_req: Request, ctx: FreshContext<unknown, BookData>) => {
     const { key } = ctx.params;
@@ -10,15 +25,23 @@ export const handler: Handlers = {
       const url = `https://openlibrary.org/works/${key}.json`;
       const response = await axios.get<BookData>(url);
       if (response.status !== 200) {
-        return new Response("Book not found", { status: 404 });
+        return new Response("Libro no encontrado", { status: 404 });
       }
       const bookData = response.data;
       const title = bookData.title;
       const description = bookData.description
         ? bookData.description
-        : "No description available";
+        : "No hay descripción disponible";
       const created = bookData.created.value;
-      const npages = bookData.npages || 0;
+
+      const editionsUrl = `https://openlibrary.org/works/${key}/editions.json`;
+      const editionsResponse = await axios.get<Pages>(editionsUrl);
+      const editions = editionsResponse.data.entries;
+
+      const firstWithPages = editions.find((e) => e.number_of_pages);
+      const number_of_pages = firstWithPages?.number_of_pages ||
+        "No disponible";
+
       const bookKey = bookData.key.replace("/works/", "");
       const authors = bookData.authors.map((author) => ({
         author: { key: author.author.key.replace("/authors/", "") },
@@ -29,7 +52,7 @@ export const handler: Handlers = {
         title: title,
         description: description,
         created: { value: created },
-        npages: npages,
+        number_of_pages: number_of_pages,
         key: bookKey,
         authors: authors,
         covers: covers,

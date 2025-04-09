@@ -6,11 +6,11 @@ export type Author = {
 
 export type BookData = {
   title: string;
-  description: string;
+  description?: string;
   created: {
     value: Date;
   };
-  npages: number;
+  number_of_pages?: number;
   key: string;
   authors: Author[];
   covers: number[];
@@ -18,7 +18,7 @@ export type BookData = {
 
 export type AuthorData = {
   name: string;
-  biography: string;
+  biography?: string;
   works: {
     title: string;
     key: string;
@@ -27,7 +27,7 @@ export type AuthorData = {
 
 export type SearchData = {
   docs: {
-    cover_i: number;
+    cover_i?: number;
     title: string;
     author_name: string[];
     key: string;

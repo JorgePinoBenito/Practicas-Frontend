@@ -12,17 +12,17 @@ export const handler: Handlers = {
       const url = `https://openlibrary.org/authors/${key}.json`;
       const response = await axios.get<AuthorData>(url);
       if (response.status !== 200) {
-        return new Response("Author not found", { status: 404 });
+        return new Response("Autor no encontrado", { status: 404 });
       }
       const authorData = response.data;
       const name = authorData.name;
-      const biography = authorData.biography || "No biography available";
+      const biography = authorData.biography || "No hay biografía disponible";
       const authorKey = key;
       const worksUrl =
         `https://openlibrary.org/authors/${authorKey}/works.json`;
       const worksResponse = await axios.get(worksUrl);
       if (worksResponse.status !== 200) {
-        return new Response("Works not found", { status: 404 });
+        return new Response("Trabajos no encontrados", { status: 404 });
       }
       const worksData = worksResponse.data.entries;
       for (const work of worksData) {

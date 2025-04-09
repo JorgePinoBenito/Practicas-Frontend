@@ -7,18 +7,6 @@ const featuredBooks = [
   "To Kill a Mockingbird",
   "1984",
   "The Great Gatsby",
-  "Pride and Prejudice",
-  "The Hobbit",
-  "Moby-Dick",
-  "Jane Eyre",
-  "War and Peace",
-  "The Catcher in the Rye",
-  "Brave New World",
-  "The Lord of the Rings",
-  "Crime and Punishment",
-  "The Alchemist",
-  "The Picture of Dorian Gray",
-  "Harry Potter and the Sorcerer's Stone",
 ];
 
 export const handler: Handlers = {
@@ -31,17 +19,17 @@ export const handler: Handlers = {
         const url = "https://openlibrary.org/search.json?q=" + book;
         const response = await axios.get<SearchData>(url);
         if (response.status !== 200) {
-          return new Response("Book not found", { status: 404 });
+          return new Response("Libro no encontrado", { status: 404 });
         }
         const bookData = response.data.docs[0];
         const title = bookData.title;
         const author = bookData.author_name;
-        const coverId = bookData.cover_i;
+        const cover_i = bookData.cover_i ? bookData.cover_i : undefined;
 
         const bookInfo = {
           title: title,
           author_name: author,
-          cover_i: coverId,
+          cover_i: cover_i,
           key: bookData.key.replace("/works/", ""),
         };
 

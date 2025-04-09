@@ -13,7 +13,7 @@ export const handler: Handlers = {
         const response = await axios.get<SearchData>(apiUrl);
 
         if (response.status !== 200) {
-          return new Response("Book not found", { status: 404 });
+          return new Response("Libro no encontrado", { status: 404 });
         }
 
         const bookData = response.data.docs.map((book) => ({
@@ -21,7 +21,7 @@ export const handler: Handlers = {
           author_name: book.author_name
             ? book.author_name
             : ["Autor desconocido"],
-          cover_i: book.cover_i,
+          cover_i: book.cover_i ? book.cover_i : undefined,
           key: book.key.replace("/works/", ""),
         }));
 
