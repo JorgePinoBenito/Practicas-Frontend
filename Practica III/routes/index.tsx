@@ -35,7 +35,9 @@ export const handler: Handlers = {
         }
         const bookData = response.data.docs[0];
         const title = bookData.title;
-        const author = bookData.author_name;
+        const author = bookData.author_name
+          ? bookData.author_name
+          : ["Autor desconocido"];
         const cover_i = bookData.cover_i ? bookData.cover_i : undefined;
 
         const bookInfo = {

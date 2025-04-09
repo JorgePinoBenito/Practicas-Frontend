@@ -16,7 +16,9 @@ export const handler: Handlers = {
       }
       const authorData = response.data;
       const name = authorData.name;
-      const biography = authorData.biography || "No hay biografía disponible";
+      const biography = authorData.biography
+        ? authorData.biography
+        : "No hay biografía disponible";
       const authorKey = key;
       const worksUrl =
         `https://openlibrary.org/authors/${authorKey}/works.json`;

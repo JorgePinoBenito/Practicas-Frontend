@@ -30,8 +30,9 @@ export const handler: Handlers = {
       const editions = editionsResponse.data.entries;
 
       const firstWithPages = editions.find((e) => e.number_of_pages);
-      const number_of_pages = firstWithPages?.number_of_pages ||
-        "No disponible";
+      const number_of_pages = firstWithPages
+        ? firstWithPages.number_of_pages
+        : undefined;
 
       const bookKey = bookData.key.replace("/works/", "");
       const authors = bookData.authors.map((author) => ({
