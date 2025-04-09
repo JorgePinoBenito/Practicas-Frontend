@@ -1,30 +1,14 @@
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import axios from "npm:axios";
-
-type Author = {
-  author: {
-    key: string;
-  };
-};
-
-type Data = {
-  title: string;
-  description: string;
-  created: {
-    value: Date;
-  };
-  npages: number;
-  key: string;
-  authors: Author[];
-  covers: number[];
-};
+import { BookData } from "../../types.ts";
+import BookDetails from "../../components/BookDetails.tsx";
 
 export const handler: Handlers = {
-  GET: async (_req: Request, ctx: FreshContext<unknown, Data>) => {
+  GET: async (_req: Request, ctx: FreshContext<unknown, BookData>) => {
     const { key } = ctx.params;
     try {
       const url = `https://openlibrary.org/works/${key}.json`;
-      const response = await axios.get<Data>(url);
+      const response = await axios.get<BookData>(url);
       if (response.status !== 200) {
         return new Response("Book not found", { status: 404 });
       }
@@ -58,32 +42,8 @@ export const handler: Handlers = {
   },
 };
 
-const Page = (props: PageProps<Data>) => {
-  return (
-    <div class="bookDetails">
-      <h1>{props.data.title}</h1>
-      <p>{props.data.description}</p>
-      <p>Año de publicación: {props.data.created.value}</p>
-      <p>Número de páginas: {props.data.npages}</p>
-      {props.data.covers.map((cover) => {
-        return (
-          <img
-            key={cover}
-            src={`https://covers.openlibrary.org/b/id/${cover}-L.jpg`}
-            alt={props.data.title}
-          />
-        );
-      })}
-      <h2>Autor</h2>
-      {props.data.authors.map((author) => {
-        return (
-          <div key={author.author.key}>
-            <a href={`/author/${author.author.key}`}>{author.author.key}</a>
-          </div>
-        );
-      })}
-    </div>
-  );
+const Page = (props: PageProps<BookData>) => {
+  return <BookDetails book={props.data} />;
 };
 
 export default Page;

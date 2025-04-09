@@ -1,23 +1,16 @@
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import axios from "npm:axios";
-
-type Data = {
-  docs: {
-    cover_i: number;
-    title: string;
-    author_name: string[];
-    key: string;
-  }[];
-};
+import { SearchData } from "../types.ts";
+import ListBooks from "../components/SearchForm.tsx";
 
 export const handler: Handlers = {
-  GET: async (req: Request, ctx: FreshContext<unknown, Data>) => {
+  GET: async (req: Request, ctx: FreshContext<unknown, SearchData>) => {
     const url = new URL(req.url);
     const titulo = url.searchParams.get("titulo");
     if (titulo) {
       try {
         const apiUrl = "https://openlibrary.org/search.json?q=" + titulo;
-        const response = await axios.get<Data>(apiUrl);
+        const response = await axios.get<SearchData>(apiUrl);
 
         if (response.status !== 200) {
           return new Response("Book not found", { status: 404 });
@@ -42,7 +35,7 @@ export const handler: Handlers = {
   },
 };
 
-const Page = (props: PageProps<Data>) => {
+const Page = (props: PageProps<SearchData>) => {
   return (
     <div class="tituloForm">
       <h1>Buscador de títulos</h1>
@@ -56,29 +49,7 @@ const Page = (props: PageProps<Data>) => {
         <button type="submit">Buscar</button>
       </form>
 
-      {props.data && (
-        <>
-          {props.data.docs.length === 0
-            ? <p>No se encontraron libros con ese título.</p>
-            : (
-              <>
-                {props.data.docs.map((book) => (
-                  <div key={book.key}>
-                    {book.cover_i && (
-                      <img
-                        src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-                        alt={book.title ?? "Portada del libro"}
-                      />
-                    )}
-                    <h2>{book.title ?? "Sin título"}</h2>
-                    <p>por {book.author_name}</p>
-                    <a href={`/book/${book.key}`}>Ver detalles</a>
-                  </div>
-                ))}
-              </>
-            )}
-        </>
-      )}
+      {props.data && <ListBooks books={props.data.docs} />}
     </div>
   );
 };

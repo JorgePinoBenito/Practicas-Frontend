@@ -1,29 +1,35 @@
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import axios from "npm:axios";
+import { SearchData } from "../types.ts";
+import FeaturedBooks from "../components/FeaturedBooks.tsx";
 
 const featuredBooks = [
   "To Kill a Mockingbird",
   "1984",
+  "The Great Gatsby",
+  "Pride and Prejudice",
+  "The Hobbit",
+  "Moby-Dick",
+  "Jane Eyre",
+  "War and Peace",
+  "The Catcher in the Rye",
+  "Brave New World",
+  "The Lord of the Rings",
+  "Crime and Punishment",
+  "The Alchemist",
+  "The Picture of Dorian Gray",
+  "Harry Potter and the Sorcerer's Stone",
 ];
 
-type Data = {
-  docs: {
-    cover_i: number;
-    title: string;
-    author_name: string[];
-    key: string;
-  }[];
-};
-
 export const handler: Handlers = {
-  GET: async (_req: Request, ctx: FreshContext<unknown, Data>) => {
+  GET: async (_req: Request, ctx: FreshContext<unknown, SearchData>) => {
     try {
-      const data: Data = {
+      const data: SearchData = {
         docs: [],
       };
       for (const book of featuredBooks) {
         const url = "https://openlibrary.org/search.json?q=" + book;
-        const response = await axios.get<Data>(url);
+        const response = await axios.get<SearchData>(url);
         if (response.status !== 200) {
           return new Response("Book not found", { status: 404 });
         }
@@ -49,25 +55,8 @@ export const handler: Handlers = {
   },
 };
 
-const Page = (props: PageProps<Data>) => {
-  return (
-    <div class="index">
-      <h1>Featured Books</h1>
-      <ul>
-        {props.data.docs.map((book) => (
-          <li key={book.key}>
-            <img
-              src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-              alt={book.title}
-            />
-            <h2>{book.title}</h2>
-            <p>by {book.author_name.join(", ")}</p>
-            <a href={`/book/${book.key}`}>View Details</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+const Page = (props: PageProps<SearchData>) => {
+  return <FeaturedBooks books={props.data.docs} />;
 };
 
 export default Page;

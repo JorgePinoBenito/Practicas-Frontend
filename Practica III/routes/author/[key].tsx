@@ -1,23 +1,16 @@
 import { FreshContext, Handlers, PageProps } from "$fresh/server.ts";
 import axios from "npm:axios";
-
-type Data = {
-  name: string;
-  biography: string;
-  works: {
-    title: string;
-    key: string;
-  }[];
-};
+import { AuthorData } from "../../types.ts";
+import AuthorDetails from "../../components/AuthorDetails.tsx";
 
 export const handler: Handlers = {
-  GET: async (_req: Request, ctx: FreshContext<unknown, Data>) => {
+  GET: async (_req: Request, ctx: FreshContext<unknown, AuthorData>) => {
     const { key } = ctx.params;
     try {
       const works = [];
 
       const url = `https://openlibrary.org/authors/${key}.json`;
-      const response = await axios.get<Data>(url);
+      const response = await axios.get<AuthorData>(url);
       if (response.status !== 200) {
         return new Response("Author not found", { status: 404 });
       }
@@ -50,21 +43,8 @@ export const handler: Handlers = {
   },
 };
 
-const Page = (props: PageProps<Data>) => {
-  return (
-    <div class="authorPage">
-      <h1>{props.data.name}</h1>
-      <p>{props.data.biography}</p>
-      <h2>Works</h2>
-      <ul>
-        {props.data.works.map((work) => (
-          <li key={work.key}>
-            <a href={`/book/${work.key}`}>{work.title}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+const Page = (props: PageProps<AuthorData>) => {
+  return <AuthorDetails author={props.data} />;
 };
 
 export default Page;
