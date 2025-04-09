@@ -26,7 +26,9 @@ const BookDetails: FunctionalComponent<Props> = ({ book }) => {
       <h2>Autor</h2>
       {book.authors.map((author) => (
         <div key={author.author.key}>
-          <a href={`/author/${author.author.key}`}>{author.author.key}</a>
+          <a href={`/author/${book.authors[0].author.key}`}>
+            {book.authors[0].author.key}
+          </a>
         </div>
       ))}
     </div>

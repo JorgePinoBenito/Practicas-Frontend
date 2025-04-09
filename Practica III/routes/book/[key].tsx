@@ -35,9 +35,11 @@ export const handler: Handlers = {
         : undefined;
 
       const bookKey = bookData.key.replace("/works/", "");
-      const authors = bookData.authors.map((author) => ({
-        author: { key: author.author.key.replace("/authors/", "") },
-      }));
+      const authors = bookData.authors
+        ? bookData.authors.map((author) => ({
+          author: { key: author.author.key.replace("/authors/", "") },
+        }))
+        : [];
       const covers = bookData.covers || [];
 
       const bookInfo = {
