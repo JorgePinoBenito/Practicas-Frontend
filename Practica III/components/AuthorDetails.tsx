@@ -7,7 +7,8 @@ type Props = {
 
 const AuthorDetails: FunctionalComponent<Props> = ({ author }) => {
   return (
-    <div class="authorPage">
+    <div class="index">
+    <div class="BookDetails">
       <h1>{author.name}</h1>
       <p>{author.biography}</p>
 
@@ -19,6 +20,7 @@ const AuthorDetails: FunctionalComponent<Props> = ({ author }) => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };

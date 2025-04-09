@@ -7,7 +7,8 @@ type Props = {
 
 const BookDetails: FunctionalComponent<Props> = ({ book }) => {
   return (
-    <div class="bookDetails">
+    <div class="index">
+      <div class="BookDetails">
       <h1>{book.title}</h1>
       <p>{book.description}</p>
       <p>Año de publicación: {new Date(book.created.value).getFullYear()}</p>
@@ -27,6 +28,7 @@ const BookDetails: FunctionalComponent<Props> = ({ book }) => {
           <a href={`/author/${author.author.key}`}>{author.author.key}</a>
         </div>
       ))}
+      </div>
     </div>
   );
 };

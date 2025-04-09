@@ -7,22 +7,22 @@ type Props = {
 
 const FeaturedBooks: FunctionalComponent<Props> = ({ books }) => {
   return (
+    <div>
+    <h1>Featured Books</h1>
     <div class="index">
-      <h1>Featured Books</h1>
-      <ul>
-        {books.map((book) => (
-          <li key={book.key}>
-            <img
-              src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
-              alt={book.title}
-            />
-            <h2>{book.title}</h2>
-            <p>by {book.author_name.join(", ")}</p>
-            <a href={`/book/${book.key}`}>View Details</a>
-          </li>
-        ))}
-      </ul>
+      {books.map((book) => (
+        <div class="grid-element" key={book.key}>
+          <img
+            src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
+            alt={book.title}
+          />
+          <h2>{book.title}</h2>
+          <p>by {book.author_name.join(", ")}</p>
+          <a href={`/book/${book.key}`}>View Details</a>
+        </div>
+      ))}
     </div>
+  </div>
   );
 };
 

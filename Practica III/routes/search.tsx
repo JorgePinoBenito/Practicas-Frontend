@@ -40,7 +40,7 @@ const Page = (props: PageProps<SearchData>) => {
     <div class="tituloForm">
       <h1>Buscador de títulos</h1>
 
-      <form method="get">
+      <form class="searchForm" method="get">
         <input
           type="text"
           name="titulo"

@@ -11,9 +11,10 @@ const ListBooks: FunctionalComponent<Props> = ({ books }) => {
   }
 
   return (
-    <div class="bookList">
+    <div>
+    <div class="index">
       {books.map((book) => (
-        <div key={book.key}>
+        <div class="grid-element" key={book.key}>
           {book.cover_i && (
             <img
               src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
@@ -25,6 +26,7 @@ const ListBooks: FunctionalComponent<Props> = ({ books }) => {
           <a href={`/book/${book.key}`}>Ver detalles</a>
         </div>
       ))}
+    </div>
     </div>
   );
 };
