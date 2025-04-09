@@ -12,13 +12,11 @@ const AuthorDetails: FunctionalComponent<Props> = ({ author }) => {
       <p>{author.biography}</p>
 
       <h2>Trabajos</h2>
-      <ul>
+      <div class="AuthorWorks">
         {author.works.map((work) => (
-          <li key={work.key}>
-            <a href={`/book/${work.key}`}>{work.title}</a>
-          </li>
+          <a class="WorkCard" href={`/book/${work.key}`}>{work.title}</a>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
