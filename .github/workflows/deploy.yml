@@ -29,7 +29,7 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "jorgepinobe-practicas-f-36"
+          project: "jorgepinobe-practicas-f-38"
           entrypoint: "main.ts"
           root: "."
           
