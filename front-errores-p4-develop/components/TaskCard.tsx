@@ -61,6 +61,7 @@ export function TaskCard(
             <span>Updated:</span>
             {formatDate(task.updatedAt)}
           </div>
+          {/* añadido un div para assigned to ya que no salia debajo de created y de updated*/}
           <div class="task-card-user">
             <span>Assigned to:</span>
             <span>{user?.name || "Unknown user"}</span>
