@@ -71,7 +71,15 @@ export default function TaskBoard() {
     try {
       isLoading.value = true;
       error.value = null;
-
+      /*he añadido
+      const userId = "USER_ID";
+      y he cambiado
+      const updatedTask = await updateTaskStatus(taskId, {
+        status: TaskStatus.IN_PROGRESS,
+      });
+      por
+      const updatedTask = await moveTask(taskId, userId);
+      pero no funciona la función de mover tarea*/
       const userId = "USER_ID";
 
       const updatedTask = await moveTask(taskId, userId);

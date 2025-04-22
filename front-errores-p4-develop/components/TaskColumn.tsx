@@ -22,6 +22,16 @@ export function TaskColumn({
 }: TaskColumnProps) {
   const getNextStatus = (currentStatus: TaskStatus): TaskStatus => {
     switch (currentStatus) {
+      /*se debe cambiar
+      case TaskStatus.PENDING:
+        return TaskStatus.IN_PROGRESS;
+      case TaskStatus.IN_PROGRESS:
+        return TaskStatus.COMPLETED;
+      case TaskStatus.COMPLETED:
+        return TaskStatus.PENDING;
+      default:
+        return TaskStatus.PENDING;
+        a como esta ahora debido a que el enum de los types son TODO, IN_PROGRESS Y DONE*/
       case TaskStatus.TODO:
         return TaskStatus.TODO;
       case TaskStatus.DONE:
