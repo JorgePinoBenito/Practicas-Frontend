@@ -13,5 +13,12 @@
   },
   "[javascript]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": false,
+    "scminput": false,
+    "yaml": false
   }
 }
